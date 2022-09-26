@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dojo ninjas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        
+        .container{
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .result{
+            width: 300px;
+            margin: 0 auto;
+        }
+        .form-control{
+            width: auto;
+        }
+        #state{
+            margin-bottom: 25px;
+        }
+        .result h2{
+            
+        }
+        h2{
+            background-color: beige;
+            margin: 0 auto;
+            border-bottom: 2px solid gray;
+            border-radius: 10px 0px 10px 0px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        ul p{
+            font-size: 1.3rem;
+            margin: 0 auto;
+            background-color: beige;
+            
+            
+        }
+        .list-group-item{
+            font-size: 1.1rem;
+        }
+        .reset{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .p{
+            font-size: 1rem;
+            margin-left: 20%;
+            border: 1px solid black;
+            width: 11%;
+            text-align: center;
+            background-color: beige;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">
+            <h1> Add a Dojo</h1>
+            <hr>
+            <form action="/process1" method="post">
+                {% csrf_token %}
+            <label for="name"> Name: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Full Name" name="name">
+            <label for="city"> City: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="City" name="city">
+            <label for="state"> State </label>
+            <input type="text" class="form-control" id="state" placeholder="2 digits" name="state">
+            <button type="submit" class="btn btn-primary btn-lg">Add</button>
+
+            </form>
+
+
+        </div>
+        <div class="box2">
+            <h1> Add a Ninja</h1>
+            <hr>
+            <form action="/process2" method="post">
+            {% csrf_token %}
+            <label for="name"> First Name </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="First Name" name="firstname">
+            <label for="lastname"> Last Name </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Last Name" name="lastname">
+            <label for="select"> Dojo: </label>
+            <select name="selectdojo" class="form-control"><br>
+                {%for dj in Dojos%}
+                <option value="{{dj.id}}">{{dj.name}}</option> #
+                <!-- we can't send objects via a form !!  so we do this -->
+                <!-- so whatever in the database it will go to the seslect statment -->
+
+                {%endfor%}
+
+            </select><br>
+            <button type="submit" class="btn btn-secondary btn-lg">Add</button>
+        </form>
+        
+        </div>
+        
+    </div>
+    <div class="reset">
+    <form action="/reset" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" name="reset" value="rn">Reset All Ninjas</button>
+        <button type="submit" class="btn btn-danger" name="reset" value="rd">Reset All Dojos and Ninjas</button>
+        
+       
+    </form> </div>
+    <div class="des"><p class="p">Number of Dojos: {{request.session.count}}</p>
+        <p class="p">Number of Ninjas: {{request.session.countt}}</p>
+    </div>
+    
+
+    <hr>
+    
+    <div class="result">
+        
+        {% if Dojos %}
+            <h2> All the dojos </h2>
+        {% endif %}
+        
+        {%for dojo in Dojos%}
+        <ul class="list-group"><p> {{dojo.name}} </p>
+            {%for ninja in dojo.Ninjas.all%}
+            <li class="list-group-item">
+                {{ninja.first_name}} {{ninja.last_name}}
+
+            </li>
+            {%endfor%}
+            
+            
+        </ul>
+        {%endfor%}
+     
+        
+
+
+</div>
+
+</body>
+</html>
