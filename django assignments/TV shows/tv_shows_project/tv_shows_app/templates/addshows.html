@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Add Show</title>
+    <style>
+        body{
+            padding-left: 200px;
+            padding-top: 100px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        #exampleFormControlInput1{
+            width: 20%;
+            margin-bottom: 10px;
+        }
+        h2{
+            border-bottom: 1px solid gray;
+            width: 20%;
+            
+        }
+        a{
+            font-size: 1.5rem;
+            
+        }
+        
+        
+        
+    </style>
+</head>
+
+<body>
+    
+    <a href="/">Go Back</a>
+    
+    
+    <h2> Add a New Show </h2>
+    
+    
+    <form action="/shows" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="titleshow">
+
+        </div>
+        
+            <label for="Network">Network</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="network">
+            <label for="date">Release Date</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" name="date">
+        
+        <div>
+            <label for="des">Description</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="des">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+</body>
+
+</html>
