@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .container{
+            display: flex;
+            justify-content: space-evenly;
+            
+            width: auto;
+            margin-top: 50px;
+            
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 35%;
+            margin-right: 20px;
+        }
+        label,input{
+            margin-bottom: 5px;
+            
+        }
+        button{
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <form action="/registration" method="post">
+            {% csrf_token %}
+            <h1>Registration</h1>
+            <label for="fname">First Name</label>
+            <input type="text" name="fname">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "first_name" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "last_name" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="email">Email</label>
+            <input type="text" name="email">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "email" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="pass">Password</label>
+            <input type="password" name="password">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "password" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <label for="pass">Confirm Password</label>
+            <input type="password" name="cpassword">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "cpassword" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <button type="submit">Register</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "suc" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </form>
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <label for="email">Email</label>
+            <input type="text" name="login_email">
+            
+            <label for="pass">Password</label>
+            <input type="password" name="login_password">
+            <button type="submit">Login</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.extra_tags == "wrong" %}
+            <p id="messtag" {% if message.tags %} class="alert {{ message.tags }}" role="alert" {% endif %}>
+                {{ message }}
+            </p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </form>
+
+
+    </div>
+</body>
+</html>
